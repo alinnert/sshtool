@@ -1,0 +1,6 @@
+name: ssh_tool
+version: 0.0.1
+author: Andreas Linnert <andreas@linnertmedia.de>
+
+dependencies:
+  args: ^1.5.2
