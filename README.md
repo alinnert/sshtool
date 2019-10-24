@@ -2,7 +2,7 @@
 
 This is going to be a small tool to manage your SSH settings.
 
-I'm using [Dart](https://dart.dev) because I want this to be a CLI with a GUI on top later on. And I'm look forward to [Flutter](https://flutter.dev) supporting desktop environments.
+I'm using [Dart](https://dart.dev) because I want this to be a CLI with a GUI on top later on. And I'm looking forward to [Flutter](https://flutter.dev) supporting desktop environments. Let's see how that works out.
 
 ## Usage (draft)
 
