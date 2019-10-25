@@ -8,6 +8,6 @@ class ConfigHostsListCommand extends Command {
 
   void run() {
     final hostnames = ConfigService.getHostNames();
-    print(hostnames);
+    print(hostnames.join('\n'));
   }
 }

@@ -3,10 +3,9 @@ import 'dart:io';
 class ConfigService {
   static List<String> fileContent = null;
 
-  static _getUserConfigFileContent({bool global = false, bool force = false}) {
-    final env = Platform.environment;
-    final homeDir = Platform.isWindows ? env['UserProfile'] : env['HOME'];
-    final filename = global ? '' : homeDir + '/.ssh/config';
+  static List<String> _getUserConfigFileContent(
+      {bool global = false, bool force = false}) {
+    final filename = _getConfigFilePath(global);
 
     if (fileContent == null || force) {
       final file = new File(filename);
@@ -16,7 +15,42 @@ class ConfigService {
     return fileContent;
   }
 
+  static String _getConfigFilePath(bool global) {
+    final env = Platform.environment;
+    final homeDir = Platform.isWindows ? env['UserProfile'] : env['HOME'];
+
+    if (global) {
+      if (Platform.isWindows) {
+        // This gets tricky...
+        // The config file is bundled with OpenSSH.
+        // Its location can by anywhere:
+        // - Whereever the user installs Git
+        // - The OpenSSH that comes with Windows'
+        // Plus: multiple versions could co-exist.
+        // Have fun, future me. Greetings from the past. _o/
+        // But maybe this also affects other OSes.
+        throw Exception('not yet implemented');
+      } else {
+        return '/etc/ssh/ssh_config';
+      }
+    }
+
+    return homeDir + '/.ssh/config';
+  }
+
+  static List<String> _getHostsFromConfigFileContent(List<String> lines) {
+    final hostLines = lines.where((line) {
+      return line.startsWith('Host ');
+    }).map((line) {
+      return line.replaceFirst('Host ', '');
+    }).toList();
+
+    return hostLines;
+  }
+
   static List<String> getHostNames({bool global = false}) {
-    return _getUserConfigFileContent(global: global, force: false);
+    final lines = _getUserConfigFileContent(global: global, force: false);
+    final hosts = _getHostsFromConfigFileContent(lines);
+    return hosts;
   }
 }
