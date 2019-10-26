@@ -14,30 +14,51 @@ Some name ideas are:
 
 ## CLI Usage (draft)
 
+### Basic commands
+
+~~~ bash
+# run the GUI version (if available)
+sshtool
+
+# display help
+sshtool --help
+~~~
+
+### Manage SSH config
+
 ~~~ bash
 # list all hosts
 sshtool config [--global|-g] hosts ls
 sshtool config [--global|-g] hosts list
+
 # add host interactively
 sshtool config [--global|-g] hosts add
+
 # add host directly
 sshtool config [--global|-g] hosts add <host-name> --host <host-addr>
+
 # remove host
 sshtool config [--global|-g] host remove <host-name>
+~~~
 
+Normally the config file in your user directory is being used.
+
+Use the `--global` flag to use the global SSH config.
+
+### Manage SSH key pairs
+
+~~~ bash
 # generate key pair
 sshtool key generate
+
 # copy public key to clipboard
 sshtool key copy
+
 # change key passphrase
 sshtool key change-passphrase
+
 # upload public key to a remote
 # [--key] optionally specify which key to upload
 # [--target-file] optionally specify where the "authorized_keys" is located
 sshtool key upload [--key|-k <key-file>] [--target-file|-t <file>]
-
-# display help
-sshtool --help
-
-# more to come...
 ~~~
