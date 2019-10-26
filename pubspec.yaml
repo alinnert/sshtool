@@ -4,3 +4,4 @@ author: Andreas Linnert <andreas@linnertmedia.de>
 
 dependencies:
   args: ^1.5.2
+  console: ^3.1.0
