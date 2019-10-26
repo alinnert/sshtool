@@ -2,7 +2,7 @@ import 'package:args/command_runner.dart';
 
 import 'ConfigHostsCommand.dart';
 
-class ConfigCommand extends Command {
+class ConfigCommand extends Command<void> {
   final name = 'config';
   final description = 'View or change config settings';
 
@@ -12,7 +12,7 @@ class ConfigCommand extends Command {
   }
 
   void run() {
-    if (argResults['global']) {
+    if (argResults['global'] == true) {
       print('global config...');
     } else {
       print('user config...');

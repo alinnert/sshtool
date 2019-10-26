@@ -2,7 +2,7 @@ import 'package:args/command_runner.dart';
 
 import 'ConfigHostsListCommand.dart';
 
-class ConfigHostsCommand extends Command {
+class ConfigHostsCommand extends Command<void> {
   final name = 'hosts';
   final description = 'Configure hosts in your SSH config';
 
