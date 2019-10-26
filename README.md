@@ -58,7 +58,12 @@ sshtool key copy
 sshtool key change-passphrase
 
 # upload public key to a remote
-# [--key] optionally specify which key to upload
-# [--target-file] optionally specify where the "authorized_keys" is located
-sshtool key upload [--key|-k <key-file>] [--target-file|-t <file>]
+#
+# --key            Optionally specify which key to upload
+#                  Default: "~/.ssh/id_rsa.pub"
+#
+# --target-file    Optionally specify where the
+#                  "authorized_keys" file is located.
+#                  Default: "~/.ssh/authorized_keys"
+sshtool key upload <remote-name> [--key|-k <key-file>] [--target-file|-t <file>]
 ~~~
