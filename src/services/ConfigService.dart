@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import '../models/Host.dart';
+
 List<String> fileContent = null;
 
-List<String> _getUserConfigFileContent(
+List<String> _getConfigFileContent(
     {bool global = false, bool force = false}) {
   final filename = _getConfigFilePath(global);
   if (fileContent == null || force) {
@@ -10,6 +12,27 @@ List<String> _getUserConfigFileContent(
     fileContent = file.readAsLinesSync();
   }
   return fileContent;
+}
+
+List<Host> _parseConfig(List<String> lines) {
+  return lines.fold(new List<Host>(), (List<Host> hosts, String line) {
+    final exp = new RegExp(r'^\s*([A-Za-z-]+)\s+(.*)$');
+    final matches = exp.firstMatch(line);
+    if (matches == null) { return hosts; }
+
+    final optionName = matches.group(1);
+    final optionValue = matches.group(2);
+
+    if (optionName == 'Host') {
+      hosts.add(new Host(optionValue));
+    } else {
+      final host = hosts.last;
+      if (host == null) { return hosts; }
+      hosts.last.options.add(new HostOption(optionName, optionValue));
+    }
+
+    return hosts;
+  });
 }
 
 String _getConfigFilePath(bool global) {
@@ -35,17 +58,12 @@ String _getConfigFilePath(bool global) {
   return homeDir + '/.ssh/config';
 }
 
-List<String> _getHostsFromConfigFileContent(List<String> lines) {
-  final hostLines = lines
-      .where((line) => line.startsWith('Host '))
-      .map((line) => line.replaceFirst('Host ', ''))
-      .toList();
-
-  return hostLines;
+List<String> _getHostsFromConfig(List<String> lines) {
+  return _parseConfig(lines).map((host) => host.name).toList();
 }
 
 List<String> getHostNames({bool global = false}) {
-  final lines = _getUserConfigFileContent(global: global, force: false);
-  final hosts = _getHostsFromConfigFileContent(lines);
-  return hosts;
+  final lines = _getConfigFileContent(global: global, force: false);
+  final config = _parseConfig(lines);
+  return config.map((host) => host.toString()).toList();
 }
