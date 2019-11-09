@@ -2,6 +2,30 @@ name: ssh_tool
 version: 0.0.1
 author: Andreas Linnert <andreas@linnertmedia.de>
 
+environment:
+  sdk: '>=2.0.0 <3.0.0'
+  flutter: '>=1.10.2-pre.54'
+
 dependencies:
+  flutter:
+    sdk: flutter
   args: ^1.5.2
   console: ^3.1.0
+
+flutter:
+  uses-material-design: true
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto/Roboto-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/Roboto/Roboto-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Roboto/Roboto-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Roboto/Roboto-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Roboto/Roboto-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Roboto/Roboto-Black.ttf
+          weight: 900
