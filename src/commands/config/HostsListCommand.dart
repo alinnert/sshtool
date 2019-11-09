@@ -3,7 +3,7 @@ import 'package:args/command_runner.dart';
 import '../../services/ConfigService.dart' show getHostNames;
 import '../../services/ConfigService.dart';
 
-class ConfigHostsListCommand extends Command<void> {
+class HostsListCommand extends Command<void> {
   final name = 'list';
   final description = 'List all available hosts';
 
