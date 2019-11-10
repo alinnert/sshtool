@@ -15,7 +15,7 @@ class HostsCommand extends Command<void> {
           'Otherwise, the one in your user directory is used.'
         ].join('\n'));
 
-    addSubcommand(new HostsListCommand());
+    addSubcommand(HostsListCommand());
   }
 
   void run() {

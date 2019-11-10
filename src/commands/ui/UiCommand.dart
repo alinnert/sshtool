@@ -12,6 +12,6 @@ class UiCommand extends Command<void> {
   void run() {
     debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
 
-    runApp(new MyApp());
+    runApp(MyApp());
   }
 }
