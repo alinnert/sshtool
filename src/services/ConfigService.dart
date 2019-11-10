@@ -1,11 +1,10 @@
 import 'dart:io';
 
-import '../models/Host.dart';
+import '../models/ConfigFile.dart';
 
 List<String> fileContent = null;
 
-List<String> _getConfigFileContent(
-    {bool global = false, bool force = false}) {
+List<String> _getConfigFileContent({bool global = false, bool force = false}) {
   final filename = _getConfigFilePath(global);
   if (fileContent == null || force) {
     final file = File(filename);
@@ -37,12 +36,29 @@ String _getConfigFilePath(bool global) {
   return homeDir + '/.ssh/config';
 }
 
-List<String> _getHostsFromConfig(List<String> lines) {
-  return ConfigFile(lines).hosts.map((host) => host.name).toList();
+List<String> getHostNames({bool global = false}) {
+  final lines = _getConfigFileContent(global: global);
+  final config = ConfigFile(lines);
+  return config.hosts
+      .map((host) =>
+          '${host.name} (${host.getOption('hostname')?.value ?? 'none'})')
+      .toList();
 }
 
-List<String> getHostNames({bool global = false}) {
-  final lines = _getConfigFileContent(global: global, force: false);
+List<String> getHostInfo({bool global = false}) {
+  final lines = _getConfigFileContent(global: global);
   final config = ConfigFile(lines);
-  return config.hosts.map((host) => host.toString()).toList();
+  final hosts = config.hosts.map((host) {
+    final hostOutput = '[ ${host.name} ]\n';
+
+    final optionsOutput = host.options.map((option) {
+      final comments =
+          option.comments.map((comment) => '\n${comment}').join('');
+      return '${option.name}: ${option.value}${comments}';
+    }).join('\n');
+
+    return hostOutput + optionsOutput;
+  }).toList();
+
+  return hosts + config.eofComments.map((comment) => '${comment}').toList();
 }
