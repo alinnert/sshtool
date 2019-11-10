@@ -1,4 +1,4 @@
-const configProperties = [
+const hostOptionNames = [
   'Match',
   'AddressFamily',
   'BatchMode',
