@@ -24,26 +24,26 @@ sshtool
 sshtool --help
 ~~~
 
-### Manage SSH config
+### Manage hosts
 
 ~~~ bash
 # list all hosts
-sshtool config [--global|-g] hosts ls
-sshtool config [--global|-g] hosts list
+sshtool [--global|-g] hosts ls
+sshtool [--global|-g] hosts list
 
 # add host interactively
-sshtool config [--global|-g] hosts add
+sshtool [--global|-g] hosts add
 
 # add host directly
-sshtool config [--global|-g] hosts add <host-name> --host <host-addr>
+sshtool [--global|-g] hosts add <host-name> --host <host-addr>
 
 # remove host
-sshtool config [--global|-g] host remove <host-name>
+sshtool [--global|-g] host remove <host-name>
 ~~~
 
-Normally the config file in your user directory is being used.
+By default, the config file in your user directory is being used.
 
-Use the `--global` flag to use the global SSH config.
+Use the `--global` flag to use the global config file.
 
 ### Manage SSH key pairs
 
@@ -60,10 +60,8 @@ sshtool key change-passphrase
 # upload public key to a remote
 #
 # --key            Optionally specify which key to upload
-#                  Default: "~/.ssh/id_rsa.pub"
 #
 # --target-file    Optionally specify where the
 #                  "authorized_keys" file is located.
-#                  Default: "~/.ssh/authorized_keys"
 sshtool key upload <remote-name> [--key|-k <key-file>] [--target-file|-t <file>]
 ~~~
