@@ -12,6 +12,20 @@ Some name ideas are:
 - sesh (alternative abbreviation for "secure shell")
 - kee (alternative spelling for "key")
 
+## Progress
+
+- [ ] Hosts
+  - [x] List
+  - [ ] Add
+  - [ ] Edit
+  - [ ] Remove
+  - [ ] Use global config file
+- [ ] Keys
+  - [ ] Generate
+  - [ ] Copy
+  - [ ] Change Passphrase
+  - [ ] Upload
+
 ## CLI Usage (draft)
 
 ### Basic commands
